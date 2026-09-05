@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accademia "Noi Uomini Duri"</title>
+    <!-- Font Atletici e Moderni da Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- RESET & VARIABILI --- */
+        :root {
+            --primary: #d35400; /* Arancione Ruggine */
+            --primary-hover: #b03a2e;
+            --dark-bg: #1a1a1a; /* Grigio Scuro */
+            --light-bg: #f4f4f4; /* Grigio Chiaro */
+            --text-dark: #222222;
+            --text-light: #ffffff;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-image: url('stone_wall_background.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: var(--text-dark);
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+
+        /* --- CONTENITORE PRINCIPALE (STILE MOCKUP) --- */
+        .site-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(5px);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        /* --- NAVBAR --- */
+        header {
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .logo {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.8rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            margin-right: 30px;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        .btn-nav {
+            background-color: var(--primary);
+            color: var(--text-light);
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-family: 'Oswald', sans-serif;
+            letter-spacing: 1px;
+            transition: background-color 0.3s;
+        }
+
+        .btn-nav:hover {
+            background-color: var(--primary-hover);
+            color: var(--text-light);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            position: relative;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url('hero_spartan_training.png');
+            background-size: cover;
+            background-position: center;
+            color: var(--text-light);
+            text-align: center;
+            padding: 120px 20px;
+        }
+
+        .hero h1 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 3.5rem;
+            letter-spacing: 2px;
+            color: var(--primary);
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            font-weight: 500;
+            max-width: 800px;
+            margin: 0 auto 30px auto;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .btn-cta {
+            display: inline-block;
+            background-color: var(--primary);
+            color: var(--text-light);
+            padding: 15px 35px;
+            border-radius: 4px;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.1rem;
+            text-decoration: none;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s, background-color 0.3s;
+        }
+
+        .btn-cta:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+        }
+
+        /* --- GRIGLIA A DUE COLONNE --- */
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            background-color: #ffffff;
+        }
+
+        .col-left {
+            border-right: 1px solid #e1e1e1;
+        }
+
+        .col-left, .col-right {
+            padding: 50px 40px;
+        }
+
+        /* --- SEZIONI --- */
+        .section-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background-color: var(--primary);
+            margin: 10px auto 0 auto;
+        }
+
+        /* --- IL MANIFESTO --- */
+        .manifesto-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+
+        .manifesto-card {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .manifesto-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 15px auto;
+            color: var(--text-dark);
+        }
+
+        .manifesto-icon.rust {
+            color: var(--primary);
+        }
+
+        .manifesto-card h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .manifesto-card p {
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        /* --- IL PROGRAMMA --- */
+        .program-container {
+            background-color: var(--light-bg);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            margin-top: 20px;
+        }
+
+        .program-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .program-day {
+            text-align: center;
+        }
+
+        .program-day h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.3rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 5px;
+        }
+
+        .day-icon {
+            width: 45px;
+            height: 45px;
+            margin: 0 auto 15px auto;
+            color: var(--text-dark);
+        }
+
+        .program-day p {
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .program-day span {
+            display: block;
+            font-size: 0.8rem;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        /* --- COSA È INCLUSO & BADGE --- */
+        .includes-wrapper {
+            position: relative;
+            background-color: var(--text-light);
+            padding-bottom: 30px;
+            border-bottom: 1px solid #e1e1e1;
+            margin-bottom: 35px;
+        }
+
+        .includes-list {
+            list-style: none;
+        }
+
+        .includes-list li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .includes-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        /* Badge del Prezzo */
+        .price-badge {
+            position: absolute;
+            top: -10px;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background-color: var(--dark-bg);
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: var(--text-light);
+            text-align: center;
+            box-shadow: var(--box-shadow);
+        }
+
+        .price-badge .small-text {
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .price-badge .price {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1;
+            margin: 2px 0;
+        }
+
+        /* --- REQUISITI OBBLIGATORI --- */
+        .requirements {
+            background-color: var(--light-bg);
+            border-left: 4px solid var(--primary);
+            padding: 20px;
+            border-radius: 4px;
+            margin-bottom: 45px;
+        }
+
+        .requirements h4 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .requirements p {
+            font-size: 0.85rem;
+            color: #555;
+            margin-bottom: 8px;
+            position: relative;
+            padding-left: 15px;
+        }
+
+        .requirements p::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        /* --- MODULO DI CANDIDATURA --- */
+        .form-section {
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            padding: 35px 25px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+
+        .form-section h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 25px;
+            color: var(--text-light);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+
+        .form-group label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+            color: #aaa;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            background-color: #2a2a2a;
+            border: 1px solid #444;
+            border-radius: 4px;
+            padding: 10px 12px;
+            color: var(--text-light);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            height: 80px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background-color: var(--primary);
+            color: var(--text-light);
+            border: none;
+            padding: 14px;
+            border-radius: 4px;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--primary-hover);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: var(--dark-bg);
+            color: #777;
+            text-align: center;
+            padding: 20px;
+            font-size: 0.75rem;
+            border-top: 1px solid #2a2a2a;
+        }
+
+        /* --- RESPONSIVENESS (MOBILE FRIENDLY) --- */
+        @media (max-width: 900px) {
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+            .col-left {
+                border-right: none;
+                border-bottom: 1px solid #e1e1e1;
+            }
+            .manifesto-grid {
+                grid-template-columns: 1fr;
+            }
+            .program-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            nav a {
+                margin-right: 15px;
+            }
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            .form-group.full-width {
+                grid-column: span 1;
+            }
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            .price-badge {
+                position: relative;
+                top: 0;
+                right: 0;
+                margin: 20px auto 0 auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="site-container">
+        
+        <!-- HEADER -->
+        <header>
+            <div class="logo">NOI <span>UOMINI DURI</span></div>
+            <nav>
+                <a href="#manifesto">IL MANIFESTO</a>
+                <a href="#candidatura" class="btn-nav">CANDIDATI ORA</a>
+            </nav>
+        </header>
+
+        <!-- HERO SECTION -->
+        <section class="hero">
+            <h1>ACCADEMIA "NOI UOMINI DURI"</h1>
+            <p>5 giorni di allenamento intensivo, vita sociale, disciplinatezza, poco digitale</p>
+            <a href="#candidatura" class="btn-cta">Candidati per la prossima settimana (Max 10 Posti)</a>
+        </section>
+
+        <!-- GRID PRINCIPALE -->
+        <div class="grid-container">
+            
+            <!-- COLONNA SINISTRA -->
+            <div class="col-left">
+                
+                <!-- SEZIONE IL MANIFESTO -->
+                <section id="manifesto">
+                    <h2 class="section-title">Il Manifesto</h2>
+                    <div class="manifesto-grid">
+                        
+                        <!-- Pilastro 1 -->
+                        <div class="manifesto-card">
+                            <!-- Icona Reset Digitale (Smartphone Barrato SVG) -->
+                            <svg class="manifesto-icon rust" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+                                <line x1="12" y1="18" x2="12.01" y2="18"></line>
+                                <line x1="2" y1="2" x2="22" y2="22" stroke="var(--primary)" stroke-width="2.5"></line>
+                            </svg>
+                            <h3>1. Reset Digitale</h3>
+                            <p>Stacco completo dalla tecnologia per ritrovare concentrazione e presenza mentale.</p>
+                        </div>
+
+                        <!-- Pilastro 2 -->
+                        <div class="manifesto-card">
+                            <!-- Icona Kettlebell SVG -->
+                            <svg class="manifesto-icon" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2a5 5 0 0 0-5 5v1.2a8 8 0 0 0-5 7.3C2 19.4 5.6 22 12 22s10-2.6 10-6.5a8 8 0 0 0-5-7.3V7a5 5 0 0 0-5-5zm0 2c1.7 0 3 1.3 3 3v.8c-1-.5-2.1-.8-3-.8s-2 .3-3 .8V7c0-1.7 1.3-3 3-3zm0 7c4.4 0 7.5 1.5 8 4H4c.5-2.5 3.6-4 8-4z"/>
+                            </svg>
+                            <h3>2. Allenamento Duro</h3>
+                            <p>Esercizi funzionali, lavoro di forza e disciplina fisica tra boschi e casolare.</p>
+                        </div>
+
+                        <!-- Pilastro 3 -->
+                        <div class="manifesto-card">
+                            <!-- Icona Gruppo SVG -->
+                            <svg class="manifesto-icon rust" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                                <circle cx="9" cy="7" r="4" />
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                            </svg>
+                            <h3>3. Spirito di Gruppo</h3>
+                            <p>Supporto reciproco, lavoro di squadra e legami forti tra veri compagni.</p>
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- SEZIONE IL PROGRAMMA -->
+                <section>
+                    <h2 class="section-title">Il Programma</h2>
+                    <div class="program-container">
+                        <div class="program-grid">
+                            
+                            <!-- Lunedì -->
+                            <div class="program-day">
+                                <!-- Icona Tazza Caffè SVG -->
+                                <svg class="day-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M17 8h1a4 4 0 1 1 0 8h-1"></path>
+                                    <path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"></path>
+                                    <line x1="6" y1="2" x2="6" y2="4"></line>
+                                    <line x1="10" y1="2" x2="10" y2="4"></line>
+                                    <line x1="14" y1="2" x2="14" y2="4"></line>
+                                </svg>
+                                <h3>Lunedì</h3>
+                                <p>08:00</p>
+                                <span>Arrivo, Colazione, Consegna Kit</span>
+                                <p>09:00 - 13:00</p>
+                                <span>Primo orientamento e prove fisiche</span>
+                            </div>
+
+                            <!-- Mar-Gio -->
+                            <div class="program-day">
+                                <!-- Icona Manubrio SVG -->
+                                <svg class="day-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="m6.5 6.5 11 11"></path>
+                                    <path d="m21 21-1.5-1.5"></path>
+                                    <path d="m3 3 1.5 1.5"></path>
+                                    <path d="m18.5 5.5 3 3-1.5 1.5-3-3Z"></path>
+                                    <path d="m5.5 18.5 3 3-1.5 1.5-3-3Z"></path>
+                                </svg>
+                                <h3>Mar-Gio</h3>
+                                <p>08:00 - 19:30</p>
+                                <span>Routine Disciplinata</span>
+                                <p>09:00 - 18:30</p>
+                                <span>Attività e lavoro al Casolare</span>
+                            </div>
+
+                            <!-- Venerdì -->
+                            <div class="program-day">
+                                <!-- Icona Bandierina SVG -->
+                                <svg class="day-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path>
+                                    <line x1="4" y1="22" x2="4" y2="15"></line>
+                                </svg>
+                                <h3>Venerdì</h3>
+                                <p>Mattina</p>
+                                <span>Sfida Finale di Resistenza</span>
+                                <p>Pomeriggio</p>
+                                <span>Check-out e Consegna Attestati</span>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+
+            <!-- COLONNA DESTRA -->
+            <div class="col-right">
+                
+                <!-- COSA È INCLUSO -->
+                <section class="includes-wrapper">
+                    <h2 class="section-title">Cosa è Incluso</h2>
+                    
+                    <!-- Prezzo Badge Circolare -->
+                    <div class="price-badge">
+                        <span class="small-text">Solo</span>
+                        <span class="price">500 €</span>
+                        <span class="small-text">A Settimana</span>
+                    </div>
+
+                    <ul class="includes-list">
+                        <li>Soggiorno 5 giorni / 4 notti nel Casolare dell'Accademia</li>
+                        <li>Pensione completa con menu sportivo a rotazione</li>
+                        <li>Gestione completa di allergie e intolleranze alimentari</li>
+                        <li>Kit Ufficiale dell'Accademia (Felpa + T-Shirt tecnica)</li>
+                    </ul>
+                </section>
+
+                <!-- REQUISITI OBBLIGATORI -->
+                <section class="requirements">
+                    <h4>Requisiti Obbligatori</h4>
+                    <p>Certificato Medico per attività sportiva non agonistica (con ECG sotto sforzo)</p>
+                    <p>Scarico di Responsabilità firmato prima del check-in</p>
+                </section>
+
+                <!-- FORM CANDIDATURA -->
+                <section id="candidatura" class="form-section">
+                    <h3>Candidati Ora</h3>
+                    <form action="#" method="POST" onsubmit="alert('Candidatura inviata! Verrai ricontattato a breve.'); return false;">
+                        <div class="form-grid">
+                            
+                            <div class="form-group">
+                                <label for="nome">Nome Completo</label>
+                                <input type="text" id="nome" required placeholder="Es. Mario Rossi">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="eta">Età</label>
+                                <input type="number" id="eta" required min="18" max="100" placeholder="Es. 25">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="tel">Telefono (WhatsApp)</label>
+                                <input type="tel" id="tel" required placeholder="Es. 333 1234567">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" required placeholder="Es. mario@esempio.com">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="preparazione">Livello Preparazione</label>
+                                <select id="preparazione" required>
+                                    <option value="" disabled selected>Seleziona livello</option>
+                                    <option value="principiante">Principiante (Inizio ora)</option>
+                                    <option value="intermedio">Intermedio (Mi alleno regolarmente)</option>
+                                    <option value="avanzato">Avanzato (Atleta / Molto allenato)</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="intolleranze">Intolleranze Alimentari</label>
+                                <select id="intolleranze" required>
+                                    <option value="nessuna">Nessuna intolleranza</option>
+                                    <option value="glutine">Celiachia / Intolleranza al Glutine</option>
+                                    <option value="lattosio">Intolleranza al Lattosio</option>
+                                    <option value="vegetariano">Dieta Vegetariana</option>
+                                    <option value="altro">Altro (specifica nelle note)</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label for="motivazione">Perché vuoi partecipare?</label>
+                                <textarea id="motivazione" required placeholder="Descrivi brevemente cosa ti spinge ad unirti all'Accademia..."></textarea>
+                            </div>
+
+                        </div>
+
+                        <button type="submit" class="btn-submit">Invia la tua candidatura</button>
+                    </form>
+                </section>
+
+            </div>
+
+        </div>
+
+        <!-- FOOTER -->
+        <footer>
+            <p>&copy; 2026 Accademia "Noi Uomini Duri". Tutti i diritti riservati.</p>
+        </footer>
+
+    </div>
+
+</body>
+</html>
