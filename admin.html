@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — Noi Uomini Duri</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:Inter,sans-serif;background:#202627;color:#f1f1ee;min-height:100vh}button,input,select{font:inherit}.wrap{max-width:1400px;margin:auto;padding:28px}.top{display:flex;justify-content:space-between;align-items:center;gap:20px;border-bottom:1px solid #444;padding-bottom:20px;margin-bottom:25px}.brand{font-family:Oswald,sans-serif;font-size:2rem;letter-spacing:1px}.brand span{color:#c75a28}.sub{color:#999;font-size:.8rem;text-transform:uppercase;letter-spacing:1px;margin-top:4px}.btn{border:1px solid #555;background:#15191a;color:#eee;padding:10px 16px;border-radius:4px;cursor:pointer;text-transform:uppercase;font-family:Oswald,sans-serif;letter-spacing:.7px}.btn:hover{border-color:#c75a28}.btn.orange{background:#c75a28;border-color:#c75a28}.panel{background:#15191a;border:1px solid #333;border-radius:6px;padding:20px;margin-bottom:20px}.login{max-width:430px;margin:12vh auto}.login h1{font-family:Oswald,sans-serif;text-transform:uppercase;margin-bottom:8px}.login p{color:#aaa;font-size:.9rem;margin-bottom:22px;line-height:1.5}.field{margin-bottom:14px}.field label{display:block;font-size:.72rem;text-transform:uppercase;color:#aaa;font-weight:700;margin-bottom:6px}.field input,.field select{width:100%;background:#252a2b;color:#fff;border:1px solid #444;border-radius:4px;padding:11px}.field input:focus,.field select:focus{outline:none;border-color:#c75a28}.message{padding:12px;border-radius:4px;background:#252a2b;color:#ddd;margin-top:14px;display:none;font-size:.85rem}.message.show{display:block}.toolbar{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}.toolbar input{background:#252a2b;color:#fff;border:1px solid #444;border-radius:4px;padding:11px 13px;min-width:260px}.stats{display:flex;gap:10px;flex-wrap:wrap}.stat{background:#252a2b;border:1px solid #3b3b3b;padding:10px 14px;border-radius:4px;font-size:.78rem}.stat strong{font-family:Oswald,sans-serif;font-size:1.25rem;color:#c75a28;margin-right:5px}.table-wrap{overflow:auto}.table{width:100%;border-collapse:collapse;min-width:900px}.table th{font-family:Oswald,sans-serif;text-transform:uppercase;letter-spacing:.6px;color:#aaa;font-size:.72rem;text-align:left;border-bottom:1px solid #444;padding:12px 10px}.table td{border-bottom:1px solid #2f3334;padding:12px 10px;vertical-align:top;font-size:.82rem}.table tr:hover{background:#1c2021}.name{font-weight:700}.date{color:#888;font-size:.72rem;margin-top:3px}.contact a{color:#ddd;text-decoration:underline}.status{border-radius:3px;padding:7px 8px;background:#252a2b;color:#fff;border:1px solid #444;font-size:.75rem}.detail{color:#aaa;max-width:360px;line-height:1.4;white-space:pre-wrap}.empty{text-align:center;padding:35px;color:#888}.loading{text-align:center;padding:35px;color:#aaa}.danger{color:#ffb4a0}.footer{color:#666;font-size:.7rem;text-align:center;padding:20px}.hidden{display:none!important}@media(max-width:700px){.wrap{padding:15px}.top{align-items:flex-start;flex-direction:column}.brand{font-size:1.6rem}.toolbar{align-items:stretch}.toolbar input{width:100%;min-width:0}.stats{width:100%}.stat{flex:1}}
+</style>
+</head>
+<body>
+<div id="loginView" class="wrap hidden">
+  <div class="panel login">
+    <h1>Area riservata</h1>
+    <p>Accesso amministratore alle candidature di <strong>NOI UOMINI DURI</strong>.</p>
+    <form id="loginForm">
+      <div class="field"><label>Email</label><input id="loginEmail" type="email" required autocomplete="username"></div>
+      <div class="field"><label>Password</label><input id="loginPassword" type="password" required autocomplete="current-password"></div>
+      <button class="btn orange" type="submit" style="width:100%">Accedi</button>
+      <div id="loginMessage" class="message"></div>
+    </form>
+  </div>
+</div>
+
+<div id="adminView" class="wrap hidden">
+  <div class="top">
+    <div><div class="brand">NOI <span>UOMINI DURI</span></div><div class="sub">Area amministrazione — candidature</div></div>
+    <button id="logoutBtn" class="btn">Esci</button>
+  </div>
+
+  <div class="panel">
+    <div class="toolbar">
+      <input id="search" type="search" placeholder="Cerca nome, email, telefono...">
+      <div class="stats">
+        <div class="stat"><strong id="countTotal">0</strong>Totali</div>
+        <div class="stat"><strong id="countNew">0</strong>Nuove</div>
+        <div class="stat"><strong id="countAccepted">0</strong>Accettate</div>
+        <button id="refreshBtn" class="btn">Aggiorna</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div id="loading" class="loading">Caricamento candidature...</div>
+    <div id="empty" class="empty hidden">Nessuna candidatura trovata.</div>
+    <div id="tableWrap" class="table-wrap hidden">
+      <table class="table">
+        <thead><tr><th>Data</th><th>Candidato</th><th>Contatti</th><th>Livello</th><th>Intolleranze</th><th>Motivazione</th><th>Stato</th></tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+  </div>
+  <div class="footer">I dati sono visibili solo agli utenti autenticati secondo le policy RLS del progetto Supabase.</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
+<script>
+const cfg = window.SUPABASE_CONFIG || {};
+const configured = cfg.url && cfg.anonKey && !cfg.url.includes('INSERISCI') && !cfg.anonKey.includes('INSERISCI');
+const loginView=document.getElementById('loginView'), adminView=document.getElementById('adminView'), loginForm=document.getElementById('loginForm'), loginMessage=document.getElementById('loginMessage');
+let client=null, allRows=[];
+function msg(el,text){el.textContent=text;el.classList.add('show')}
+function formatDate(v){return new Intl.DateTimeFormat('it-IT',{dateStyle:'short',timeStyle:'short'}).format(new Date(v))}
+function esc(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
+function statusOptions(current){return ['NUOVA','DA CONTATTARE','COLLOQUIO','ACCETTATA','RIFIUTATA','CONFERMATA'].map(s=>`<option value="${s}" ${s===current?'selected':''}>${s}</option>`).join('')}
+function render(){
+ const q=document.getElementById('search').value.trim().toLowerCase();
+ const rows=allRows.filter(r=>[r.nome,r.email,r.telefono,r.livello,r.intolleranze,r.motivazione,r.stato].join(' ').toLowerCase().includes(q));
+ document.getElementById('countTotal').textContent=allRows.length;
+ document.getElementById('countNew').textContent=allRows.filter(r=>r.stato==='NUOVA').length;
+ document.getElementById('countAccepted').textContent=allRows.filter(r=>r.stato==='ACCETTATA'||r.stato==='CONFERMATA').length;
+ const tbody=document.getElementById('rows'); tbody.innerHTML='';
+ document.getElementById('loading').classList.add('hidden');
+ document.getElementById('empty').classList.toggle('hidden',rows.length>0);
+ document.getElementById('tableWrap').classList.toggle('hidden',rows.length===0);
+ rows.forEach(r=>{
+   const tr=document.createElement('tr');
+   tr.innerHTML=`<td>${esc(formatDate(r.created_at))}</td><td><div class="name">${esc(r.nome)}</div><div class="date">Età: ${esc(r.eta)}</div></td><td class="contact"><div>${esc(r.telefono)}</div><div><a href="mailto:${encodeURIComponent(r.email)}">${esc(r.email)}</a></div></td><td>${esc(r.livello)}</td><td>${esc(r.intolleranze||'Nessuna')}</td><td class="detail">${esc(r.motivazione)}</td><td><select class="status" data-id="${esc(r.id)}">${statusOptions(r.stato)}</select></td>`;
+   tbody.appendChild(tr);
+ });
+}
+async function load(){
+ document.getElementById('loading').classList.remove('hidden'); document.getElementById('empty').classList.add('hidden'); document.getElementById('tableWrap').classList.add('hidden');
+ const {data,error}=await client.from('candidature').select('*').order('created_at',{ascending:false});
+ if(error){console.error(error);document.getElementById('loading').textContent='Errore nel caricamento: '+error.message;return}
+ allRows=data||[]; render();
+}
+async function start(){
+ if(!configured || !window.supabase){loginView.classList.remove('hidden');msg(loginMessage,'Configura prima supabase-config.js con Project URL e Publishable/anon key.');return}
+ client=window.supabase.createClient(cfg.url,cfg.anonKey);
+ const {data}=await client.auth.getSession();
+ if(data.session){adminView.classList.remove('hidden');await load()}else loginView.classList.remove('hidden');
+ client.auth.onAuthStateChange((event,session)=>{if(session){loginView.classList.add('hidden');adminView.classList.remove('hidden');load()}else{adminView.classList.add('hidden');loginView.classList.remove('hidden')}});
+}
+loginForm.addEventListener('submit',async e=>{e.preventDefault();loginMessage.classList.remove('show');const {error}=await client.auth.signInWithPassword({email:document.getElementById('loginEmail').value.trim(),password:document.getElementById('loginPassword').value});if(error)msg(loginMessage,'Accesso non riuscito: '+error.message)});
+document.getElementById('logoutBtn').addEventListener('click',()=>client.auth.signOut());
+document.getElementById('refreshBtn').addEventListener('click',load);
+document.getElementById('search').addEventListener('input',render);
+document.getElementById('rows').addEventListener('change',async e=>{if(!e.target.matches('.status'))return;const id=e.target.dataset.id,status=e.target.value;e.target.disabled=true;const {error}=await client.from('candidature').update({stato:status}).eq('id',id);e.target.disabled=false;if(error){alert('Errore aggiornamento: '+error.message);await load()}else{const r=allRows.find(x=>x.id===id);if(r)r.stato=status;render()}});
+start();
+</script>
+</body>
+</html>
